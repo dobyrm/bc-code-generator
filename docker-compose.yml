@@ -1,0 +1,15 @@
+services:
+  app:
+    container_name: bc-code-generator-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: >
+      sh -c "
+        go mod download &&
+        go build -o ./build/bc-code-generator-app &&
+        ./build/bc-code-generator-app && 
+        tail -f /dev/null
+      "

@@ -11,47 +11,44 @@ To run the application using Dockerfile, follow these steps:
 
 2. Run the container:
     ```bash
-    docker run -p 8081:8080 --name bc-code-generator-app bc-code-generator-app
+    docker run -d --name bc-code-generator-app bc-code-generator-app
     ```
 
-3. Run the container in the background:
-    ```bash
-    docker run -d -p 8081:8080 --name bc-code-generator-app bc-code-generator-app
-    ```
-
-4. Login to the container via Bash:
+3. Login to the container via Bash:
     ```bash
     docker exec -it bc-code-generator-app bash
     ```
 
-5. Start the existing container:
+## Getting Started with docker-compose
+
+To run the application using docker-compose, follow these steps:
+
+1. Run the app in detached mode:
     ```bash
-    docker start bc-code-generator-app
+    docker-compose up -d
     ```
 
-6. Stop a container:
+## Build App
+
+To build the application from the source code, follow these steps:
+
+1. To build the application, run the following command:
     ```bash
-    docker stop bc-code-generator-app
+    go build -o ./build/bc-code-generator-app
     ```
 
-7. Check running containers:
+## Run App
+
+To run the application, you can choose one of the following methods:
+
+1. Run the application using the built binary:
     ```bash
-    docker ps
+    ./build/bc-code-generator-app
     ```
 
-8. Inspect containers:
+2. Run the application without building the binary file:
     ```bash
-    docker ps -a
-    ```
-
-9. Remove the container:
-    ```bash
-    docker rm bc-code-generator-app
-    ```
-
-10. Delete an image:
-    ```bash
-    docker rmi bc-code-generator-app
+    go run main.go
     ```
 
 ## Run Test
@@ -59,13 +56,11 @@ To run the application using Dockerfile, follow these steps:
 To execute tests
 
 1. Execute all test functions in your package and get detailed output, including test names, execution times, and results
-
     ```bash
-    go test -v 
+    go test -v
     ```
 
-2. Execute all benchmark functions in your package and measure performance. It executes functions starting with 'Benchmark' and outputs results.
-
+2. Execute all benchmark functions in your package and measure performance. It executes functions starting with 'Benchmark' and outputs results
     ```bash
     go test -bench=.
     ```

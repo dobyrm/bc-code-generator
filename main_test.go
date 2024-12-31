@@ -1,37 +1,31 @@
 package main
 
 import (
-	"fmt"
 	"testing"
+	"fmt"
 )
 
-// A simple example of unit testing a function.
-// Adapted from: https://gobyexample.com/testing-and-benchmarking
-
-func TestIntMinBasic(t *testing.T) {
-	ans := IntMin(2, -2)
-	if ans != -2 {
-		t.Errorf("IntMin(2, -2) = %d; want -2", ans)
-	}
-}
-
-func TestIntMinTableDriven(t *testing.T) {
-	var tests = []struct {
-		a, b int
-		want int
+func TestRand(t *testing.T) {
+	tests := []struct {
+		length    int
+		expectErr bool
 	}{
-		{0, 1, 0},
-		{1, 0, 0},
-		{2, -2, -2},
-		{0, -1, -1},
-		{-1, 0, -1},
+		{16, false},
+		{32, false},
+		{64, false},
+		{0, true},
 	}
+
 	for _, tt := range tests {
-		testname := fmt.Sprintf("%d,%d", tt.a, tt.b)
-		t.Run(testname, func(t *testing.T) {
-			ans := IntMin(tt.a, tt.b)
-			if ans != tt.want {
-				t.Errorf("got %d, want %d", ans, tt.want)
+		t.Run(fmt.Sprintf("Rand with length %d", tt.length), func(t *testing.T) {
+			randomString, err := Rand(tt.length)
+			
+			if (err != nil) != tt.expectErr {
+				t.Errorf("expected error: %v, got: %v", tt.expectErr, err)
+			}
+			
+			if err == nil && len(randomString) != tt.length {
+				t.Errorf("expected string length: %d, got: %d", tt.length, len(randomString))
 			}
 		})
 	}
